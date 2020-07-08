@@ -1,14 +1,20 @@
-from flask import Flask, send_file
+from flask import Flask, send_file, Response
 app = Flask(__name__)
 
 PATH = "file.txt"
 
-@app.route('/not-working')
+@app.route('/api/index/not-working')
 def not_working():
     handle = open(PATH, 'r')
     data = handle.readlines()
     return data
 
-@app.route('/working')
+@app.route('/api/index/working')
 def working():
     send_file(PATH)
+
+
+@app.route('/', defaults={'path': ''})
+@app.route('/<path:path>')
+def catch_all(path):
+    return Response("<h1>Flask</h1><p>You visited: /%s</p>" % (path), mimetype="text/html")
