@@ -3,13 +3,13 @@ app = Flask(__name__)
 
 PATH = "file.txt"
 
-@app.route('/api/index/not-working')
+@app.route('/api/not-working')
 def not_working():
     handle = open(PATH, 'r')
     data = handle.readlines()
     return data
 
-@app.route('/api/index/working')
+@app.route('/api/working')
 def working():
     send_file(PATH)
 
